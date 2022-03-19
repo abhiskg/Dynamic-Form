@@ -178,7 +178,7 @@ export default function Home() {
             <select
               className={`${
                 error &&
-                "invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
+                "invalid:border-pink-500 focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
               } w-full rounded border border-slate-300 px-3 py-2 text-sm placeholder-slate-400 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 `}
               required
               type="text"
