@@ -48,7 +48,7 @@ export default function Home() {
     }, 2500);
   };
   return (
-    <main className="relative flex  flex-col items-center px-3">
+    <main className="relative flex  flex-col items-center px-3 font-body">
       <h1 className="mt-5 mb-10 bg-gradient-to-tr from-pink-500 to-amber-500 bg-clip-text pb-1 text-center text-4xl font-bold text-transparent">
         Dynamic Form
       </h1>
