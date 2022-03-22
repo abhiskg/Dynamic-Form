@@ -1,230 +1,192 @@
 import { useState } from "react";
 
 export default function Home() {
-  const [name, setName] = useState("");
-  const [age, setAge] = useState("");
-  const [inputFields, setInputFields] = useState([{ name: "", age: "" }]);
-  const [gender, setGender] = useState("");
-  const [subject, setSubject] = useState("");
-  const [message, setMessage] = useState("");
-  const [emailSend, setEmailSend] = useState(false);
+  const [nameFields, setNameFields] = useState([{ name: "" }]);
+  const [ageFields, setAgeFields] = useState([{ age: "" }]);
+  const [messageFields, setMessageFields] = useState([{ message: "" }]);
   const [error, setError] = useState(false);
 
-  const handleChange = (index, e) => {
-    let newInputFields = [...inputFields];
-    newInputFields[index][e.target.name] = e.target.value;
-    setInputFields(newInputFields);
+  const addNameField = () => {
+    let newField = { name: "" };
+    setNameFields([...nameFields, newField]);
   };
 
-  const addFriend = () => {
-    let newField = { name: "", age: "" };
-    setInputFields([...inputFields, newField]);
-  };
-
-  const removeFriend = (index) => {
-    let newInputFields = [...inputFields];
+  const removeNameField = (index) => {
+    let newInputFields = [...nameFields];
     newInputFields.splice(index, 1);
-    setInputFields(newInputFields);
+    setNameFields(newInputFields);
+  };
+
+  const handleNameChange = (index, e) => {
+    let newInputFields = [...nameFields];
+    newInputFields[index][e.target.name] = e.target.value;
+    setNameFields(newInputFields);
+  };
+
+  const addAgeField = () => {
+    let newField = { age: "" };
+    setAgeFields([...ageFields, newField]);
+  };
+
+  const removeAgeField = (index) => {
+    let newInputFields = [...ageFields];
+    newInputFields.splice(index, 1);
+    setAgeFields(newInputFields);
+  };
+
+  const handleAgeChange = (index, e) => {
+    let newInputFields = [...ageFields];
+    newInputFields[index][e.target.name] = e.target.value;
+    setAgeFields(newInputFields);
+  };
+
+  const addMessageField = () => {
+    let newField = { message: "" };
+    setMessageFields([...messageFields, newField]);
+  };
+
+  const removeMessageField = (index) => {
+    let newInputFields = [...messageFields];
+    newInputFields.splice(index, 1);
+    setMessageFields(newInputFields);
+  };
+
+  const handleMessageChange = (index, e) => {
+    let newInputFields = [...messageFields];
+    newInputFields[index][e.target.name] = e.target.value;
+    setMessageFields(newInputFields);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Name: ", name);
-    console.log("Age: ", age);
-    console.log("Friends", inputFields);
-    console.log("Gender:", gender);
-    console.log("Subject:", subject);
-    console.log("Message:", message);
+
+    console.log("Age: ", ageFields);
+    console.log("Name: ", nameFields);
+    console.log("Message:", messageFields);
+
     setError(false);
-    setEmailSend(true);
-    setName("");
-    setAge("");
-    setInputFields([{ name: "", age: "" }]);
-    setGender("");
-    setSubject("");
-    setMessage("");
-    setTimeout(() => {
-      setEmailSend(false);
-    }, 2500);
+    setNameFields("");
+    setAgeFields("");
+    setMessageFields("");
   };
   return (
-    <main className="relative flex  flex-col items-center px-3 font-body">
+    <main className="relative mx-auto max-w-3xl px-3">
       <h1 className="mt-5 mb-10 bg-gradient-to-tr from-pink-500 to-amber-500 bg-clip-text pb-1 text-center text-4xl font-bold text-transparent">
         Dynamic Form
       </h1>
-      <form className="w-full max-w-lg space-y-2.5" onSubmit={handleSubmit}>
+      <div className="flex justify-around gap-5">
         <div>
-          <label className="w-full">
-            <span className="block font-medium after:ml-0.5 after:text-red-500 after:content-['*']">
-              Name
-            </span>
-            <input
-              className={`w-full rounded border border-slate-300 px-3 py-2 text-sm placeholder-slate-400  shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 ${
-                error &&
-                "invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
-              }`}
-              placeholder="Enter your name"
-              type="text"
-              required
-              name="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </label>
-        </div>
-
-        <div>
-          <label className="w-full">
-            <span className="block font-medium after:ml-0.5 after:text-red-500 after:content-['*']">
-              Age
-            </span>
-            <input
-              className={`w-full rounded border border-slate-300 px-3 py-2 text-sm placeholder-slate-400  shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 ${
-                error &&
-                "invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
-              }`}
-              placeholder="Enter your age"
-              type="number"
-              required
-              name="age"
-              value={age}
-              onChange={(e) => setAge(e.target.value)}
-            />
-          </label>
-        </div>
-
-        <div>
-          <label className="font-medium" htmlFor="friend">
-            Friends Details
-          </label>
-          {inputFields.map((inputField, index) => (
-            <div key={index} className="mb-1 flex">
-              <input
-                className={`w-full rounded border border-slate-300 px-3 py-2 text-sm placeholder-slate-400  shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 ${
-                  error &&
-                  "invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
-                }`}
-                type="text"
-                id="friend"
-                name="name"
-                placeholder={`Enter name of friend ${index + 1}`}
-                value={inputField.name}
-                onChange={(e) => handleChange(index, e)}
-              />
-              <input
-                className={`ml-1 w-1/2 rounded border border-slate-300 px-3 py-2 text-sm placeholder-slate-400 shadow-sm  focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 sm:w-full ${
-                  error &&
-                  "invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
-                }`}
-                type="number"
-                name="age"
-                placeholder="Age"
-                value={inputField.age}
-                onChange={(e) => handleChange(index, e)}
-              />
-              <button
-                className="ml-3 rounded-md  bg-red-500 px-3 py-2 font-medium text-white hover:bg-red-600"
-                onClick={() => removeFriend(index)}
-              >
-                Remove
-              </button>
-            </div>
-          ))}
           <div
-            className="mt-2 cursor-pointer rounded bg-gradient-to-tr from-pink-500 to-amber-500 py-2 text-center font-medium"
-            onClick={addFriend}
+            className="cursor-pointer rounded bg-gradient-to-tr from-pink-500 to-amber-500 py-2 px-3 text-center text-sm  font-medium "
+            onClick={addNameField}
           >
-            Add More Friends
+            Add Name Field
+          </div>
+          <div
+            className="mt-2 cursor-pointer rounded bg-gradient-to-tr from-pink-500 to-amber-500 py-2 px-3 text-center text-sm font-medium"
+            onClick={addAgeField}
+          >
+            Add Age Field
+          </div>
+          <div
+            className="mt-2 cursor-pointer rounded bg-gradient-to-tr from-pink-500 to-amber-500 py-2 px-3 text-center text-sm font-medium"
+            onClick={addMessageField}
+          >
+            Add TextField
           </div>
         </div>
-
-        <div>
-          <label htmlFor="male" className="font-medium">
-            Gender
-          </label>
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-1">
-              <input
-                type="radio"
-                id="male"
-                name="gender"
-                value="male"
-                onChange={(e) => setGender(e.target.value)}
-                className="focus:ring-0"
-              />
-              <label htmlFor="male" className="">
-                Male
-              </label>
-            </div>
-            <div className="flex items-center gap-1">
-              <input
-                type="radio"
-                id="female"
-                name="gender"
-                className="focus:ring-0"
-                value="female"
-                onChange={(e) => setGender(e.target.value)}
-              />
-              <label htmlFor="female">Female</label>
-            </div>
+        <form className="relative flex-1 space-y-2.5 border-2 px-4 pt-4 pb-10">
+          <div>
+            {nameFields.map((nameField, index) => (
+              <div key={index}>
+                {index > 0 && (
+                  <div className="mb-2 flex gap-5">
+                    <input
+                      className={`w-full rounded border border-slate-300 px-3 py-2 text-sm placeholder-slate-400  shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 ${
+                        error &&
+                        "invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
+                      }`}
+                      type="text"
+                      name="name"
+                      placeholder={`Enter your name`}
+                      value={nameField.name}
+                      onChange={(e) => handleNameChange(index, e)}
+                    />
+                    <button
+                      className=" rounded-md  bg-red-500 px-3 py-2 font-medium text-white hover:bg-red-600"
+                      onClick={() => removeNameField(index)}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
-        </div>
 
-        <div>
-          <label>
-            <span className="block font-medium after:ml-0.5 after:text-red-500 after:content-['*'] ">
-              Subject
-            </span>
-            <select
-              className={`${
-                error &&
-                "invalid:border-pink-500 focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
-              } w-full rounded border border-slate-300 px-3 py-2 text-sm placeholder-slate-400 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 `}
-              required
-              type="text"
-              name="subject"
-              value={subject}
-              onChange={(e) => setSubject(e.target.value)}
-            >
-              <option value="" disabled hidden>
-                Select your subject
-              </option>
-              <option value="science">Science</option>
-              <option value="commerce">Commerce</option>
-              <option value="arts">Arts</option>
-            </select>
-          </label>
-        </div>
+          <div>
+            {ageFields.map((ageField, index) => (
+              <div key={index}>
+                {index > 0 && (
+                  <div className="mb-2 flex gap-5">
+                    <input
+                      className={`w-full rounded border border-slate-300 px-3 py-2 text-sm placeholder-slate-400  shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 ${
+                        error &&
+                        "invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
+                      }`}
+                      type="number"
+                      name="age"
+                      placeholder={`Age`}
+                      value={ageField.age}
+                      onChange={(e) => handleAgeChange(index, e)}
+                    />
+                    <button
+                      className=" rounded-md  bg-red-500 px-3 py-2 font-medium text-white hover:bg-red-600"
+                      onClick={() => removeAgeField(index)}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
 
-        <div>
-          <label>
-            <span className="block font-medium">Additional Message</span>
-            <textarea
-              className={`mb-2 w-full rounded  border border-slate-300 px-3 pt-2 pb-16 text-sm placeholder-slate-400 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 `}
-              placeholder="Enter your message"
-              name="message"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-            ></textarea>
-          </label>
-        </div>
+          <div>
+            {messageFields.map((messageField, index) => (
+              <div key={index}>
+                {index > 0 && (
+                  <div className="mb-2 flex items-start gap-5">
+                    <textarea
+                      className={`w-full rounded border border-slate-300 px-3 pt-2 pb-16 text-sm placeholder-slate-400  shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 ${
+                        error &&
+                        "invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
+                      }`}
+                      name="age"
+                      placeholder={`TextField`}
+                      value={messageFields.message}
+                      onChange={(e) => handleMessageChange(index, e)}
+                    />
+                    <button
+                      className=" rounded-md  bg-red-500 px-3 py-2 font-medium text-white hover:bg-red-600"
+                      onClick={() => removeMessageField(index)}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
 
-        <button
-          className="rounded bg-blue-500 px-3 py-2 font-medium text-white hover:bg-blue-600"
-          onClick={() => setError(true)}
-          type="submit"
-        >
-          Submit
-        </button>
-      </form>
-      <div
-        className={` ${
-          emailSend ? "opacity-100" : "opacity-0"
-        } absolute top-16 left-0 right-0 flex justify-center transition-opacity duration-1000 ease-linear`}
-      >
-        <p className="rounded bg-gradient-to-tr from-pink-500 to-amber-500 p-3 text-sm font-medium">
-          Check console for the results
-        </p>
+          <button
+            className="absolute right-0 bottom-0 rounded bg-blue-500 px-3 py-2 font-medium text-white hover:bg-blue-600"
+            onClick={() => setError(true)}
+            type="submit"
+          >
+            Submit
+          </button>
+        </form>
       </div>
     </main>
   );
